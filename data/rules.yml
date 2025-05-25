@@ -1,0 +1,88 @@
+version: "3.1"
+
+rules:
+  - rule: Умения
+    steps:
+      - intent: capabilities
+      - action: utter_capabilities
+
+  - rule: Ответ на прощание
+    steps:
+      - intent: goodbye
+      - action: action_save_user_memory
+      - action: utter_goodbye
+
+  - rule: Ответ на проверку бота
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  - rule: Ответ на благодарность
+    steps:
+      - intent: thanks
+      - action: utter_thanks
+
+  - rule: Реакция на хорошее настроение
+    steps:
+      - intent: mood_great
+      - action: utter_sentiment_positive
+
+  - rule: Реакция на плохое настроение
+    steps:
+      - intent: mood_unhappy
+      - action: utter_sentiment_negative
+
+  - rule: Загрузка данных при старте сессии
+    conversation_start: true  
+    steps:
+      - action: action_load_user_memory
+
+  - rule: Загрузка данных перед приветствием
+    steps:
+      - intent: greet
+      - action: action_load_user_memory
+      - action: utter_greet
+
+  - rule: Сохранить имя пользователя и поприветствовать
+    steps:
+      - intent: inform_name
+      - action: action_save_user_memory
+      - action: utter_inform_name
+
+  - rule: Сохранить данные при завершении
+    steps:
+      - intent: goodbye
+      - action: action_save_user_memory
+      - action: utter_goodbye
+
+  - rule: Запрос имени
+    steps:
+      - intent: ask_my_name
+      - action: utter_ask_my_name
+
+
+
+  - rule: Запрос времени
+    steps:
+      - intent: time
+      - action: action_get_time
+
+  - rule: Запрос даты
+    steps:
+      - intent: date
+      - action: action_get_date
+
+  - rule: Запрос погоды
+    steps:
+      - intent: weather
+      - action: action_get_weather
+
+  - rule: Вычисления
+    steps:
+      - intent: calculate
+      - action: action_calculate
+
+  - rule: Анализ текста
+    steps:
+      - intent: analyze_text
+      - action: action_analyze_text

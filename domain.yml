@@ -1,0 +1,150 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - calculate
+  - weather
+  - search
+  - time
+  - capabilities
+  - date
+  - thanks
+  - analyze_text
+  - neutral_response
+  - inform_name
+  - ask_my_name
+
+
+entities:
+  - city
+  - search_query
+  - text_to_analyze
+  - user_mood
+  - user_name
+
+slots:
+  city:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: city
+  search_query:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+  text_to_analyze:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: from_entity
+      entity: text_to_analyze
+
+  sentiment:
+    type: categorical
+    values:
+      - positive
+      - negative
+      - neutral
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+  user_remembered:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+      - type: custom
+
+  user_name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: user_name
+
+
+
+
+responses:
+
+
+  utter_greet:
+    - text: "Привет! Чем могу помочь?"
+
+  utter_cheer_up:
+    - text: "Попробуйте поискать в Яндексе:"
+      image: "https://ya.ru/?npr=1&utm_referrer=https%3A%2F%2Fyandex.ru%2F"
+
+  utter_did_that_help:
+    - text: "Я помог тебе?"
+
+  utter_happy:
+    - text: "Отлично! Рад, что у вас хорошее настроение!"
+    - text: "Прекрасно! Продолжайте в том же духе!"
+
+  utter_goodbye:
+    - text: "До свидания!"
+
+  utter_iamabot:
+    - text: "Я - чат-бот."
+
+  utter_capabilities:
+    - text: "Я могу: сообщать время, дату, погоду, выполнять вычисления"
+
+  utter_thanks:
+    - text: "Пожалуйста! Обращайтесь ещё"
+
+  utter_analysis_result:
+    - text: "Вот результаты анализа вашего текста: {analysis_result}"
+
+  utter_get_date:
+    - text: "Сегодня {date}"
+
+  utter_sentiment_positive:
+    - text: "Я чувствую позитивный настрой в вашем сообщении!"
+
+  utter_sentiment_negative:
+    - text: "Кажется, вы расстроены. Могу я чем-то помочь?"
+
+  utter_sentiment_neutral:
+    - text: "Ваше сообщение нейтральное. Хотите обсудить что-то конкретное?"
+
+  #utter_ask_my_name:
+    #- text: "Как вас зовут?"
+
+  utter_welcome_back:
+    - text: "Рад снова вас видеть, {user_name}!"
+
+  utter_ask_my_name:
+    - text: "Ваше имя - {user_name}!"
+
+  utter_inform_name: 
+    - text: "Приятно познакомиться, {user_name}!"
+  
+  utter_no_name:
+    - text: "Я еще не знаю вашего имени. Скажите, как вас зовут?"
+
+actions:
+  - action_calculate
+  - action_get_weather
+  - action_search
+  - action_get_time
+  - action_user_data
+  - action_get_date
+  - action_analyze_text
+  - action_detect_sentiment
+  - action_save_user_memory
+  - action_load_user_memory
+
+
+session_config:
+  carry_over_slots_to_new_session: true
+  session_expiration_time: 60

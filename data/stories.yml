@@ -1,0 +1,57 @@
+version: "3.1"
+
+stories:
+
+  - story: Say hi
+    steps:
+      - intent: greet
+      - action: action_load_user_memory
+      - action: utter_greet
+
+  - story: Analyze text and respond
+    steps:
+      - intent: analyze_text
+        entities:
+          - text_to_analyze: "Это пример текста для анализа"
+      - action: action_analyze_text
+
+  - story: Say goodbye
+    steps:
+      - intent: goodbye
+      - action: action_save_user_memory
+      - action: utter_goodbye
+
+  - story: Ask for time
+    steps:
+      - intent: time
+      - action: action_get_time  
+
+  - story: Get weather with city
+    steps:
+      - intent: weather
+        entities:
+          - city: Москва
+      - action: action_get_weather
+
+
+
+  - story: Handle unhappy mood
+    steps:
+      - intent: mood_unhappy
+      - action: utter_sentiment_negative 
+
+  - story: Handle great mood
+    steps:
+      - intent: mood_great
+      - action: utter_sentiment_positive
+ 
+  - story: Handle capabilities
+    steps:
+      - intent: bot_challenge  
+      - action: utter_iamabot  
+
+
+
+
+
+
